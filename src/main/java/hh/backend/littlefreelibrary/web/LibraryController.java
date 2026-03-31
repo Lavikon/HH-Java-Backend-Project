@@ -53,14 +53,14 @@ public class LibraryController {
     }
 
     // Delete library
-    @GetMapping("/library/delete/{id}")
+    @GetMapping("/library/{id}/delete")
     public String deleteLibrary(@PathVariable("id") Integer id) {
         libraryRepository.deleteById(id);
         return "redirect:/library/list";
     }
 
     // Edit library
-    @GetMapping("/library/edit/{id}")
+    @GetMapping("/library/{id}/edit")
     public String showEditLibraryForm(@PathVariable("id") Integer id, Model model) {
         Library library = libraryRepository.findById(id).orElse(null);
         // If library not found, redirect to list
