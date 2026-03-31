@@ -11,16 +11,16 @@ import hh.backend.littlefreelibrary.domain.InstitutionRepository;
 import hh.backend.littlefreelibrary.domain.Library;
 import hh.backend.littlefreelibrary.domain.LibraryTypeRepository;
 
-
 @Controller
 public class LibraryController {
 
-    // Database repositories 
+    // Database repositories
     private final LibraryRepository libraryRepository;
     private final InstitutionRepository institutionRepository;
     private final LibraryTypeRepository libraryTypeRepository;
 
-    public LibraryController(LibraryRepository libraryRepository, InstitutionRepository institutionRepository, LibraryTypeRepository libraryTypeRepository) {
+    public LibraryController(LibraryRepository libraryRepository, InstitutionRepository institutionRepository,
+            LibraryTypeRepository libraryTypeRepository) {
         this.libraryRepository = libraryRepository;
         this.institutionRepository = institutionRepository;
         this.libraryTypeRepository = libraryTypeRepository;
@@ -35,7 +35,7 @@ public class LibraryController {
         model.addAttribute("libraryTypes", libraryTypeRepository.findAll());
         return "librarylist";
     }
-    
+
     // add a library form
     @GetMapping("/library/new")
     public String showCreateLibraryForm(Model model) {
