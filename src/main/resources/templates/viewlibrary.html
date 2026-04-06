@@ -41,6 +41,7 @@
                 <hr class="my-4">
 
                 <h4 class="mb-3">Comments</h4>
+                <a th:href="@{/post/new(libraryId=${library.id})}" class="btn btn-primary mb-3">Add a Comment</a>
                 <div th:if="${library.posts == null or library.posts.isEmpty()}">
                     <p class="text-muted">No comments yet for this library.</p>
                 </div>
