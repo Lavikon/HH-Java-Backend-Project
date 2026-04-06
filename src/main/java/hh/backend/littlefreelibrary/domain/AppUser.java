@@ -5,11 +5,10 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import java.time.Instant;
 
 @Entity
 @Table(name = "users")
-public class AppUser {
+public class AppUser extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,16 +18,14 @@ public class AppUser {
     private String password;
     private String email;
     private String role;
-    private Instant createdAt;
 
     public AppUser() {}
 
-    public AppUser(String username, String password, String email, String role, Instant createdAt) {
+    public AppUser(String username, String password, String email, String role) {
         this.username = username;
         this.password = password;
         this.email = email;
         this.role = role;
-        this.createdAt = createdAt;
     }
 
     public Integer getId() {
@@ -69,13 +66,5 @@ public class AppUser {
 
     public void setRole(String role) {
         this.role = role;
-    }
-
-    public Instant getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Instant createdAt) {
-        this.createdAt = createdAt;
     }
 }

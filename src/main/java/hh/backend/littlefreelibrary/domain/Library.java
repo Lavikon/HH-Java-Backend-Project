@@ -9,12 +9,11 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import java.time.Instant;
 import java.util.List;
 
 @Entity
 @Table(name = "Library")
-public class Library {
+public class Library extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,21 +33,19 @@ public class Library {
     private Institution institution;
 
     private String amenities;
-    private Instant createdAt;
 
     @OneToMany(mappedBy = "library", fetch = FetchType.LAZY)
     private List<Post> posts;
 
     public Library() {}
 
-    public Library(String name, LibraryType type, String location, String www, Institution institution, String amenities, Instant createdAt) {
+    public Library(String name, LibraryType type, String location, String www, Institution institution, String amenities) {
         this.name = name;
         this.type = type;
         this.location = location;
         this.www = www;
         this.institution = institution;
         this.amenities = amenities;
-        this.createdAt = createdAt;
     }
 
     public Integer getId() {
@@ -105,14 +102,6 @@ public class Library {
 
     public void setAmenities(String amenities) {
         this.amenities = amenities;
-    }
-
-    public Instant getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Instant createdAt) {
-        this.createdAt = createdAt;
     }
 
     public List<Post> getPosts() {

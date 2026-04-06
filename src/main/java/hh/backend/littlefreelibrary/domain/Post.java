@@ -8,11 +8,10 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import java.time.Instant;
 
 @Entity
 @Table(name = "posts")
-public class Post {
+public class Post extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,18 +31,16 @@ public class Post {
     private Library library;
 
     private Integer rating;
-    private Instant createdAt;
 
     public Post() {}
 
-    public Post(String title, String body, AppUser user, String status, Library library, Integer rating, Instant createdAt) {
+    public Post(String title, String body, AppUser user, String status, Library library, Integer rating) {
         this.title = title;
         this.body = body;
         this.user = user;
         this.status = status;
         this.library = library;
         this.rating = rating;
-        this.createdAt = createdAt;
     }
 
     public Integer getId() {
@@ -102,11 +99,4 @@ public class Post {
         this.rating = rating;
     }
 
-    public Instant getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Instant createdAt) {
-        this.createdAt = createdAt;
-    }
 }
