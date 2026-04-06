@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import hh.backend.littlefreelibrary.domain.AppUser;
 import hh.backend.littlefreelibrary.domain.AppUserRepository;
@@ -20,44 +21,43 @@ public class AppUserController {
 
     // CRUD operations
     // display user list
-    @GetMapping("/user/list")
+    @GetMapping("/users/list")
     public String listUsers(Model model) {
         model.addAttribute("users", appUserRepository.findAll());
         return "userlist";
     }
 
     // add a user form
-    @GetMapping("/user/new")
+    @GetMapping("/users/new")
     public String showCreateUserForm(Model model) {
-        model.addAttribute("user", new AppUser());
+        model.addAttribute("appUser", new AppUser());
         return "userform";
-        // TODO: create userform.html and add functionality to it, also add edit functionality to it
     }
 
     // Save new user
-    @GetMapping("/user/save")
-    public String saveUser(AppUser user) {
-        appUserRepository.save(user);
-        return "redirect:/user/list";
+    @PostMapping("/users/save")
+    public String saveUser(AppUser appUser) {
+        appUserRepository.save(appUser);
+        return "redirect:/users/list";
     }
 
     // Delete user
-    @GetMapping("/user/{id}/delete")
+    @GetMapping("/users/{id}/delete")
     public String deleteUser(@PathVariable("id") Integer id) {
         appUserRepository.deleteById(id);
-        return "redirect:/user/list";
+        return "redirect:/users/list";
     }
 
     // Edit user form
-    @GetMapping("/user/{id}/edit")
+    @GetMapping("/users/{id}/edit")
     public String showEditUserForm(@PathVariable("id") Integer id, Model model)
     {
-        AppUser user = appUserRepository.findById(id).orElse(null);
+        AppUser appUser = appUserRepository.findById(id).orElse(null);
         // If user not found, redirect to list
-        if (user == null) {
-            return "redirect:/user/list";
+        if (appUser == null) {
+            return "redirect:/users/list";
         }
-        model.addAttribute("user", user);
+        model.addAttribute("appUser", appUser);
         return "userform";
     }
     
