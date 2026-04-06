@@ -25,6 +25,7 @@ public class PostController {
     public String listPosts(Model model) {
         model.addAttribute("posts", postRepository.findAll());
         return "postlist";
+        // TODO: create postlist.html and add functionality to it
     }
     
     // add a post form
@@ -32,6 +33,7 @@ public class PostController {
     public String showCreatePostForm(Model model) {
         model.addAttribute("post", new Post());
         return "postform";
+        // TODO: create postform.html and add functionality to it
     }
     
     // Save new post

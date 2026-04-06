@@ -31,6 +31,7 @@ public class AppUserController {
     public String showCreateUserForm(Model model) {
         model.addAttribute("user", new AppUser());
         return "userform";
+        // TODO: create userform.html and add functionality to it, also add edit functionality to it
     }
 
     // Save new user

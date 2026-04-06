@@ -24,6 +24,7 @@ public class InstitutionController {
     public String listInstitutions(Model model) {
         model.addAttribute("institutions", institutionRepository.findAll());
         return "institutionlist";
+        // TODO: create institutionlist.html and add functionality to it
     }
 
     // add an institution form
@@ -31,6 +32,7 @@ public class InstitutionController {
     public String showCreateInstitutionForm(Model model) {
         model.addAttribute("institution", new Institution());
         return "institutionform";
+        // TODO: create institutionform.html and add functionality to it, also add edit functionality to it
     }
 
     // Save new institution
