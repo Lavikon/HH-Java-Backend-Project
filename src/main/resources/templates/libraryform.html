@@ -46,7 +46,7 @@
                     </div>
                     <button type="submit" class="btn btn-primary">Save</button>
                     <a th:href="@{/library/list}" class="btn btn-secondary">Cancel</a>
-                    <a th:href="@{/institution/new}" class="btn btn-secondary">Add a new institution</a>
+                    <a th:href="@{/institution/new(returnTo='/library/new')}" class="btn btn-secondary">Add a new institution</a>
                 </form>
             </div>
         </div>

@@ -4,6 +4,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import hh.backend.littlefreelibrary.domain.Institution;
 import hh.backend.littlefreelibrary.domain.InstitutionRepository;
@@ -24,22 +26,24 @@ public class InstitutionController {
     public String listInstitutions(Model model) {
         model.addAttribute("institutions", institutionRepository.findAll());
         return "institutionlist";
-        // TODO: create institutionlist.html and add functionality to it
     }
 
     // add an institution form
     @GetMapping("/institution/new")
-    public String showCreateInstitutionForm(Model model) {
+    public String showCreateInstitutionForm(
+        @RequestParam(defaultValue = "/institution/list") String returnTo,
+        Model model) {
         model.addAttribute("institution", new Institution());
+        model.addAttribute("returnTo", returnTo);
         return "institutionform";
-        // TODO: create institutionform.html and add functionality to it, also add edit functionality to it
     }
 
     // Save new institution
-    @GetMapping("/institution/save")
-    public String saveInstitution(Institution institution) {
+    @PostMapping("/institution/save")
+    public String saveInstitution(Institution institution, 
+        @RequestParam(defaultValue = "/institution/list") String returnTo) {
         institutionRepository.save(institution);
-        return "redirect:/institution/list";
+        return "redirect:" + returnTo;
     }
 
     // Delete institution
@@ -51,13 +55,16 @@ public class InstitutionController {
 
     // Edit institution form
     @GetMapping("/institution/{id}/edit")
-    public String showEditInstitutionForm(@PathVariable("id") Integer id, Model model) {
+    public String showEditInstitutionForm(@PathVariable("id") Integer id, 
+        @RequestParam(defaultValue = "/institution/list") String returnTo,
+        Model model) {
         Institution institution = institutionRepository.findById(id).orElse(null);
         // If institution not found, redirect to list
         if (institution == null) {
             return "redirect:/institution/list";
         }
         model.addAttribute("institution", institution);
+        model.addAttribute("returnTo", returnTo);
         return "institutionform";
     }
 
