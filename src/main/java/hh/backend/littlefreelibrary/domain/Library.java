@@ -7,8 +7,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.time.Instant;
+import java.util.List;
 
 @Entity
 @Table(name = "Library")
@@ -33,6 +35,9 @@ public class Library {
 
     private String amenities;
     private Instant createdAt;
+
+    @OneToMany(mappedBy = "library", fetch = FetchType.LAZY)
+    private List<Post> posts;
 
     public Library() {}
 
@@ -108,5 +113,13 @@ public class Library {
 
     public void setCreatedAt(Instant createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
     }
 }
