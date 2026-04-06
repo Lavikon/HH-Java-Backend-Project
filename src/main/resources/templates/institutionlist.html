@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" 
+    xmlns:th="http://www.thymeleaf.org" 
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Institution List</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <h1>Institution List</h1>
+    <div>
+        <!-- TODO add security username display -->
+        <!-- TODO add security logout button -->
+    </div>
+
+    <a href="/institution/new" class="btn btn-primary">Add Institution</a>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Institution name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="institution : ${institutions}">
+                <td th:text="${institution.name}"></td>
+                <td>
+                    <!-- TODO add security visibility for actions -->
+                    <a th:href="@{/institution/{id}(id=${institution.id})}" class="btn btn-sm btn-info">View</a>
+                    <a th:href="@{/institution/{id}/edit(id=${institution.id})}" class="btn btn-sm btn-warning">Edit</a>
+                    <a th:href="@{/institution/{id}/delete(id=${institution.id})}" class="btn btn-sm btn-danger">Delete</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
