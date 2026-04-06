@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" 
+    xmlns:th="http://www.thymeleaf.org" 
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Form</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <h1 class="mb-4">Library Form</h1>
+                <form th:action="@{/library/save}" th:object="${library}" method="post">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Library Name</label>
+                        <input type="text" class="form-control" id="name" th:field="*{name}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="type" class="form-label">Type</label>
+                        <select th:field="*{type}" class="form-select" id="type">
+                            <option th:each="type : ${libraryTypes}" th:value="${type.id}" th:text="${type.typeName}">
+                            </option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="location" class="form-label">Location</label>
+                        <input type="text" class="form-control" id="location" th:field="*{location}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="www" class="form-label">Website</label>
+                        <input type="text" class="form-control" id="www" th:field="*{www}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="institution" class="form-label">Institution (Create the institution first before creating a library)</label>
+                        <select th:field="*{institution}" class="form-select" id="institution">
+                            <option th:each="institution : ${institutions}" th:value="${institution.id}" th:text="${institution.name}">
+                            </option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="amenities" class="form-label">Amenities</label>
+                        <input type="text" class="form-control" id="amenities" th:field="*{amenities}">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <a th:href="@{/library/list}" class="btn btn-secondary">Cancel</a>
+                    <a th:href="@{/institution/new}" class="btn btn-secondary">Add a new institution</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
