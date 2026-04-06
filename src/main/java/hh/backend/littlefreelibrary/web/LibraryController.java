@@ -36,6 +36,18 @@ public class LibraryController {
         return "librarylist";
     }
 
+    // display library details
+    @GetMapping("/library/{id}")
+    public String getLibraryDetails(@PathVariable("id") Integer id, Model model) {
+        Library library = libraryRepository.findById(id).orElse(null);
+        // If library not found, redirect to list
+        if (library == null) {
+            return "redirect:/library/list";
+        }
+        model.addAttribute("library", library);
+        return "viewlibrary";
+    }
+
     // add a library form
     @GetMapping("/library/new")
     public String showCreateLibraryForm(Model model) {
