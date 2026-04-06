@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" 
+<html lang="en" 
+    xmlns:th="http://www.thymeleaf.org" 
     xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
     <meta charset="UTF-8">
@@ -15,7 +16,8 @@
             <!-- TODO add security logout button -->
         </div>
 
-        <a href="/library/new" class="btn btn-primary mb-3">Add New Library</a>     
+        <a href="/library/new" class="btn btn-primary mb-3">Add New Library</a>
+        <a href="/institution/new" class="btn btn-secondary mb-3">Add New Institution</a>
 
         <table class="table table-striped">
             <thead>
@@ -31,7 +33,7 @@
                 <tr th:each="library : ${libraries}">
                     <td th:text="${library.name}"></td>
                     <td th:text="${library.location}"></td>
-                    <td th:text="${library.type} ? ${library.type.type} : 'Other'"></td>
+                    <td th:text="${library.type} ? ${library.type.typeName} : 'Other'"></td>
                     <td th:text="${library.institution} ? ${library.institution.name} : 'Independent'"></td>
                     <td>
                         <!-- TODO add security visibility for actions -->
