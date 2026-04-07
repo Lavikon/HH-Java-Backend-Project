@@ -1,5 +1,6 @@
 package hh.backend.littlefreelibrary.domain;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -12,8 +13,10 @@ public class Institution {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(nullable = false, updatable = false)
     private Integer id;
 
+    @Column(nullable = false, unique = true)
     private String name;
 
     public Institution() {}

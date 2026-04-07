@@ -1,5 +1,6 @@
 package hh.backend.littlefreelibrary.domain;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -15,8 +16,10 @@ public class Post extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(nullable = false, updatable = false)
     private Integer id;
 
+    @Column(nullable = false)
     private String title;
     private String body;
 
@@ -27,7 +30,7 @@ public class Post extends BaseEntity {
     private String status;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "libraryId")
+    @JoinColumn(name = "libraryId", nullable = false)
     private Library library;
 
     private Integer rating;
