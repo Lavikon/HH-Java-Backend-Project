@@ -33,12 +33,14 @@
 
                     <!-- TODO: limit role options for authenticated users -->
                     <div class="mb-3">
+                        <span sec:authorize="hasAuthority('ADMIN')">
                         <label for="role" class="form-label">Role</label>
                         <select class="form-select" id="role" th:field="*{role}">
-                            <option value="USER">User</option>
-                            <option value="MOD">Moderator</option>
-                            <option value="ADMIN">Administrator</option>
+                            <option value="USER" th:selected="*{role} == 'USER'">User</option>
+                            <option value="MOD" th:selected="*{role} == 'MOD'">Moderator</option>
+                            <option value="ADMIN" th:selected="*{role} == 'ADMIN'">Administrator</option>
                         </select>
+                        </span>
                     </div>
 
                     <button type="submit" class="btn btn-primary">Save</button>

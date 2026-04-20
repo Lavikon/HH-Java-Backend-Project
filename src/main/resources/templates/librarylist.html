@@ -12,8 +12,14 @@
     <div class="container mt-5">
         <h1>Libraries</h1>
         <div>
-            <!-- TODO add security username display -->
-            <!-- TODO add security logout button -->
+        <!-- Username display -->
+            Logged in as: <b><span sec:authentication="name"></span></b>
+        </div>
+        <!-- Logout  -->
+        <div>
+            <form th:action="@{/logout}" method="post">
+                <input type="submit" value="Sign Out" class="btn btn-sm btn-danger" />
+            </form>
         </div>
 
         <a href="/library/new" class="btn btn-primary mb-3">Add New Library</a>
@@ -38,8 +44,10 @@
                     <td>
                         <!-- TODO add security visibility for actions -->
                         <a th:href="@{/library/{id}(id=${library.id})}" class="btn btn-sm btn-info">View</a>
-                        <a th:href="@{/library/{id}/edit(id=${library.id})}" class="btn btn-sm btn-warning">Edit</a>
-                        <a th:href="@{/library/{id}/delete(id=${library.id})}" class="btn btn-sm btn-danger">Delete</a>
+                        <span sec:authorize="hasAuthority('ADMIN')">
+                            <a th:href="@{/library/{id}/edit(id=${library.id})}" class="btn btn-sm btn-warning">Edit</a>
+                            <a th:href="@{/library/{id}/delete(id=${library.id})}" class="btn btn-sm btn-danger">Delete</a>
+                        </span>
                     </td>
                 </tr>
             </tbody>
