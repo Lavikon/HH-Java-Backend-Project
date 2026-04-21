@@ -33,6 +33,32 @@
                 </div>
             </div>
         </div>
+
+        <!-- Main content -->
+        <div class="row">
+
+            <!-- Recent comments -->
+            <div class="col-md-4">
+                <h4 class="mb-3">Recent Comments</h4>
+                <div th:if="${recentPosts == null or recentPosts.isEmpty()}" class="text-muted">
+                    No comments yet.
+                </div>
+                <div class="card mb-3" th:each="post : ${recentPosts}">
+                    <div class="card-body">
+                        <h6 class="card-title" th:text="${post.title}"></h6>
+                        <p class="card-text small text-muted" th:text="${post.body}"></p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <small class="text-muted">
+                                <span th:text="${post.user.username}"></span> &middot;
+                                <a th:href="@{/library/{id}(id=${post.library.id})}"
+                                   th:text="${post.library.name}"></a>
+                            </small>
+                            <small th:text="${post.rating}"></small>
+                        </div>
+                    </div>
+                </div>
+
+        </div> <!-- End of main content row -->
     </div>
 </body>
 
