@@ -1,13 +1,14 @@
 <!DOCTYPE html>
-<html lang="en" 
-    xmlns:th="http://www.thymeleaf.org" 
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
     xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Free Little Library Index</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
+
 <body>
     <div class="container mt-5">
 
@@ -37,6 +38,41 @@
         <!-- Main content -->
         <div class="row">
 
+            <!-- Library list -->
+            <div class="col-md-8">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4>Libraries</h4>
+                    <a th:href="@{/library/list}" class="btn btn-sm btn-outline-primary">View all</a>
+                </div>
+
+                <div th:if="${libraries == null or libraries.isEmpty()}" class="text-muted">
+                    No libraries found.
+                </div>
+
+                <table class="table table-striped" th:if="${libraries != null and !libraries.isEmpty()}">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Location</th>
+                            <th>Type</th>
+                            <th>Institution</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="library : ${libraries}">
+                            <td th:text="${library.name}"></td>
+                            <td th:text="${library.location}"></td>
+                            <td th:text="${library.type} ? ${library.type.typeName} : 'Other'"></td>
+                            <td th:text="${library.institution} ? ${library.institution.name} : 'Independent'"></td>
+                            <td>
+                                <a th:href="@{/library/{id}(id=${library.id})}" class="btn btn-sm btn-info">View</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
             <!-- Recent comments -->
             <div class="col-md-4">
                 <h4 class="mb-3">Recent Comments</h4>
@@ -50,16 +86,15 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <small class="text-muted">
                                 <span th:text="${post.user.username}"></span> &middot;
-                                <a th:href="@{/library/{id}(id=${post.library.id})}"
-                                   th:text="${post.library.name}"></a>
+                                <a th:href="@{/library/{id}(id=${post.library.id})}" th:text="${post.library.name}"></a>
                             </small>
                             <small th:text="${post.rating}"></small>
                         </div>
                     </div>
                 </div>
 
-        </div> <!-- End of main content row -->
-    </div>
+            </div> <!-- End of main content row -->
+        </div>
 </body>
 
 </html>
