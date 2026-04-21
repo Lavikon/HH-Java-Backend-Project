@@ -44,7 +44,7 @@
                     <td>
                         <!-- TODO add security visibility for actions -->
                         <a th:href="@{/library/{id}(id=${library.id})}" class="btn btn-sm btn-info">View</a>
-                        <span sec:authorize="hasAuthority('ADMIN')">
+                        <span sec:authorize="hasRole('ADMIN')">
                             <a th:href="@{/library/{id}/edit(id=${library.id})}" class="btn btn-sm btn-warning">Edit</a>
                             <a th:href="@{/library/{id}/delete(id=${library.id})}" class="btn btn-sm btn-danger">Delete</a>
                         </span>

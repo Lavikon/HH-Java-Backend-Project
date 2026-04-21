@@ -141,8 +141,8 @@ public class DataInitializer implements CommandLineRunner {
 
         // Users
         AppUser alice = userRepository.save(new AppUser("Alice", passwordEncoder.encode("password"), "alice@example.com", "ROLE_ADMIN"));
-        AppUser bob = userRepository.save(new AppUser("Bob", passwordEncoder.encode("password"), "bob@example.com", "ROLE_MODERATOR"));
-        AppUser charlie = userRepository.save(new AppUser("Charlie", passwordEncoder.encode("password"), "charlie@example.com", "ROLE_MODERATOR"));
+        AppUser bob = userRepository.save(new AppUser("Bob", passwordEncoder.encode("password"), "bob@example.com", "ROLE_MOD"));
+        AppUser charlie = userRepository.save(new AppUser("Charlie", passwordEncoder.encode("password"), "charlie@example.com", "ROLE_MOD"));
         AppUser david = userRepository.save(new AppUser("David", passwordEncoder.encode("password"), "david@example.com", "ROLE_MEMBER"));
 
         // Posts

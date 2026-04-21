@@ -36,13 +36,10 @@
                         <!-- Default role overridden by dropdowns if visible -->
                         <input type="hidden" th:field="*{role}" />
 
-                        <!-- Role selector only visible to moderators -->
+                        <!-- Moderators can see the role but not change it -->
                         <span sec:authorize="hasRole('MOD') and !hasRole('ADMIN')">
-                            <label for="role" class="form-label">Role</label>
-                            <select class="form-select" id="role" name="role">
-                                <option value="ROLE_USER" th:selected="${appUser.role == 'ROLE_USER'}">User</option>
-                                <option value="ROLE_MOD" th:selected="${appUser.role == 'ROLE_MOD'}">Moderator</option>
-                            </select>
+                            <label class="form-label">Role</label>
+                            <input type="text" class="form-control" th:value="${appUser.role}" readonly />
                         </span>
 
                         <!-- Role selector only visible to admins -->
