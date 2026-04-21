@@ -1,5 +1,6 @@
 package hh.backend.littlefreelibrary.web;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,9 +15,11 @@ public class AppUserController {
 
     // Database repository
     private final AppUserRepository appUserRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public AppUserController(AppUserRepository appUserRepository) {
+    public AppUserController(AppUserRepository appUserRepository, PasswordEncoder passwordEncoder) {
         this.appUserRepository = appUserRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     // CRUD operations
@@ -37,6 +40,8 @@ public class AppUserController {
     // Save new user
     @PostMapping("/users/save")
     public String saveUser(AppUser appUser) {
+        // Encode the password before saving
+        appUser.setPassword(passwordEncoder.encode(appUser.getPassword()));
         appUserRepository.save(appUser);
         return "redirect:/users/list";
     }

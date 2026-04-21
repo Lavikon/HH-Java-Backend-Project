@@ -1,0 +1,35 @@
+package hh.backend.littlefreelibrary;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
+
+@Configuration
+public class SecurityConfig {
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http
+        .authorizeHttpRequests(auth -> auth
+            .requestMatchers("/","/login","/user/new","/user/save").permitAll() // access to index, login, and user registration 
+            .anyRequest().authenticated()
+        )
+        .formLogin(formlogin -> formlogin
+            .defaultSuccessUrl("/", true)
+            .permitAll()
+        )
+        .logout(logout -> logout
+            .logoutSuccessUrl("/?logout") // logout sends user to Login page and ?logout for message
+            .permitAll()
+        );
+        return http.build();
+    }
+}

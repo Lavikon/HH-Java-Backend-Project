@@ -11,6 +11,7 @@ import hh.backend.littlefreelibrary.domain.LibraryTypeRepository;
 import hh.backend.littlefreelibrary.domain.AppUserRepository;
 import hh.backend.littlefreelibrary.domain.PostRepository;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -21,18 +22,21 @@ public class DataInitializer implements CommandLineRunner {
     private final LibraryRepository libraryRepository;
     private final AppUserRepository userRepository;
     private final PostRepository postRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public DataInitializer(
             InstitutionRepository institutionRepository,
             LibraryTypeRepository libraryTypeRepository,
             LibraryRepository libraryRepository,
             AppUserRepository userRepository,
-            PostRepository postRepository) {
+            PostRepository postRepository,
+            PasswordEncoder passwordEncoder) {
         this.institutionRepository = institutionRepository;
         this.libraryTypeRepository = libraryTypeRepository;
         this.libraryRepository = libraryRepository;
         this.userRepository = userRepository;
         this.postRepository = postRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -136,10 +140,10 @@ public class DataInitializer implements CommandLineRunner {
         Library testikirjasto = libraries[0]; // Index 0 is "Arabianranta Library" with id 1 in the database
 
         // Users
-        AppUser alice = userRepository.save(new AppUser("Alice", "password", "alice@example.com", "admin"));
-        AppUser bob = userRepository.save(new AppUser("Bob", "password", "bob@example.com", "moderator"));
-        AppUser charlie = userRepository.save(new AppUser("Charlie", "password", "charlie@example.com", "moderator"));
-        AppUser david = userRepository.save(new AppUser("David", "password", "david@example.com", "member"));
+        AppUser alice = userRepository.save(new AppUser("Alice", passwordEncoder.encode("password"), "alice@example.com", "ROLE_ADMIN"));
+        AppUser bob = userRepository.save(new AppUser("Bob", passwordEncoder.encode("password"), "bob@example.com", "ROLE_MODERATOR"));
+        AppUser charlie = userRepository.save(new AppUser("Charlie", passwordEncoder.encode("password"), "charlie@example.com", "ROLE_MODERATOR"));
+        AppUser david = userRepository.save(new AppUser("David", passwordEncoder.encode("password"), "david@example.com", "ROLE_MEMBER"));
 
         // Posts
         postRepository.save(new Post("Welcome to the forum!", null, alice, null, testikirjasto, 8));
