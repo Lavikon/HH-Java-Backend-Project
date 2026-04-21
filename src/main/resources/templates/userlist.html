@@ -27,7 +27,7 @@
                 <td th:text="${user.email}"></td>
                 <td th:text="${user.role}"></td>
                 <td>
-                    <span sec:authorize="hasrole('ADMIN')">
+                    <span sec:authorize="hasRole('ADMIN')">
                     <a th:href="@{/users/{id}/edit(id=${user.id})}" class="btn btn-sm btn-warning">Edit</a>
                     <a th:href="@{/users/{id}/delete(id=${user.id})}" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</a>
                     </span>
@@ -35,6 +35,8 @@
             </tr>
         </tbody>
     </table>
-    <a href="/users/new" class="btn btn-primary">Add New User</a>
+        <span sec:authorize="hasRole('ADMIN')">
+            <a href="/users/new" class="btn btn-primary">Add New User</a>
+        </span>
 </body>
 </html>

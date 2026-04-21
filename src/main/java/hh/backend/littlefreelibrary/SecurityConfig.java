@@ -20,9 +20,11 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/", "/login", "/users/new", "/users/save",
-                        "/library/list", "/library/**", 
-                        "/css/**", "/js/**", "/images/**")
+                        "/library/list", "/library/*/", "/css/**", "/js/**", "/images/**")
                         .permitAll()
+                        .requestMatchers("/library/new", "/library/save", "/library/*/edit", "/library/*/delete")
+                        .authenticated()
+                        .requestMatchers("/users/list").hasAnyRole("ADMIN", "MOD")
                         .anyRequest().authenticated())
                 .formLogin(formlogin -> formlogin
                         .defaultSuccessUrl("/", true)
