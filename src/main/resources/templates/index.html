@@ -22,6 +22,9 @@
                     <a th:href="@{/login}" class="btn btn-primary me-2">Login</a>
                     <a th:href="@{/user/new}" class="btn btn-secondary">Register</a>
                 </div>
+                <div th:if="${param.logout}" class="alert alert-info">
+                    You have been logged out.
+                </div>
                 <div sec:authorize="isAuthenticated()">
                     <span class="me-3">Welcome, <span sec:authentication="name"></span></span>
                     <form th:action="@{/logout}" method="post" class="d-inline">
