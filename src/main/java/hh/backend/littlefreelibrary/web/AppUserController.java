@@ -1,14 +1,17 @@
 package hh.backend.littlefreelibrary.web;
 
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import hh.backend.littlefreelibrary.domain.AppUser;
 import hh.backend.littlefreelibrary.domain.AppUserRepository;
+import jakarta.validation.Valid;
 
 @Controller
 public class AppUserController {
@@ -39,8 +42,10 @@ public class AppUserController {
 
     // Save new user
     @PostMapping("/users/save")
-    public String saveUser(AppUser appUser) {
-        // Encode the password before saving
+    public String saveUser(@Valid AppUser appUser, BindingResult result) {
+        if (result.hasErrors()) {
+            return "userform";
+        }
         appUser.setPassword(passwordEncoder.encode(appUser.getPassword()));
         appUserRepository.save(appUser);
         return "redirect:/users/list";
@@ -55,8 +60,7 @@ public class AppUserController {
 
     // Edit user form
     @GetMapping("/users/{id}/edit")
-    public String showEditUserForm(@PathVariable("id") Integer id, Model model)
-    {
+    public String showEditUserForm(@PathVariable("id") Integer id, Model model) {
         AppUser appUser = appUserRepository.findById(id).orElse(null);
         // If user not found, redirect to list
         if (appUser == null) {
@@ -65,5 +69,5 @@ public class AppUserController {
         model.addAttribute("appUser", appUser);
         return "userform";
     }
-    
+
 }
