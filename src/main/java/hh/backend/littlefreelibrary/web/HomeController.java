@@ -22,7 +22,7 @@ public class HomeController {
     //public String home() {
     public String home(Model model) {
         // librarylist
-        model.addAttribute("libraries", libraryRepository.findAll());
+        model.addAttribute("libraries", libraryRepository.findTop10byOrderByIdAsc());
         // Fetch the 5 most recent posts and add to model
         model.addAttribute("recentPosts", postRepository.findTop5ByOrderByCreatedAtDesc());
         return "index";
